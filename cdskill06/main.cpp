@@ -5,6 +5,7 @@
 #include <stack>
 #include <limits>
 #include <boost/algorithm/string/predicate.hpp>
+#include "mytimer.h"
 
 
 struct Trie {
@@ -56,6 +57,26 @@ public:
             }
         }
     }
+    void solve_with_trie() {
+        table_[0] = 0;
+        for (int pos = 0; pos < text_.size(); ++pos) {
+            Trie* r = root_;
+            int i = pos;
+            while (i < text_.size() && (r = r->next[text_[i] - 'a']) != 0) {
+                if (r->is_word && table_[pos] < table_[i + 1]) {
+                    table_[i + 1] = table_[pos];
+                    word_size_table_[i + 1] = i + 1 - pos;
+                }
+                ++i;
+            }
+            
+            if (table_[pos] + 1 < table_[pos + 1]) {
+                table_[pos + 1] = table_[pos] + 1;
+                word_size_table_[pos + 1] = 0;
+            }
+        }
+    }
+
     void dump_table() {
         for (unsigned value : table_) {
             std::cout << value << std::endl;
@@ -76,9 +97,9 @@ public:
         }
     }
     void build_trie() {
-        root = new Trie;
+        root_ = new Trie;
         for (auto& word : dictionary_) {
-            root->add_word(word.c_str());
+            root_->add_word(word.c_str());
         }
     }
     void show_result() {
@@ -133,13 +154,20 @@ private:
     std::vector<std::string> dictionary_;
     std::vector<unsigned> table_;
     std::vector<unsigned> word_size_table_;
-    Trie* root;
+    Trie* root_;
 };
 
 int main(int argc, char** argv) {
     Solver solver("text2.dat", "dictionary2.dat");
-    solver.build_trie();
+    MyTimer timer;
+    timer.start("direct compare");
     solver.solve();
+    timer.stop();
+    timer.start("with trie");
+    solver.build_trie();
+    solver.solve_with_trie();
+    timer.stop();
     solver.dump_table();
     solver.show_result();
+    timer.showResults();
 }
