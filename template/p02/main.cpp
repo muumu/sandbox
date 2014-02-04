@@ -2,7 +2,7 @@
 #include "mytimer.h"
 
 int factorial_r(int n) {
-    if (n == 0) {
+    if (n <= 1) {
         return 1;
     }
     return n * factorial_r(n - 1);
@@ -21,6 +21,17 @@ unsigned long long fib_r(int n) {
         return n;
     }
     return fib_r(n - 1) + fib_r(n - 2);
+}
+
+unsigned long long fib_mem(int n) {
+    static unsigned long long cache[100] = {0};
+    if (n <= 1) {
+        return n;
+    }
+    if (cache[n] > 0) {
+        return cache[n];
+    }
+    return cache[n] = fib_mem(n - 1) + fib_mem(n - 2);
 }
 
 int fib_loop(int n) {
@@ -84,6 +95,12 @@ int main(int argc, char** argv) {
         std::cout << fib_r(i) << std::endl;
     }
     timer.stop();
+    timer.start("fib_memo");
+    for (int i = 0; i < 40; ++i) {
+        std::cout << fib_mem(i) << std::endl;
+    }
+    timer.stop();
+
     timer.start("fib_loop");
     for (int i = 0; i < 40; ++i) {
         std::cout << fib_loop(i) << std::endl;
