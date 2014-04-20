@@ -70,9 +70,9 @@ void print_all(const std::vector<std::shared_ptr<Profile_IP> >& profiles) {
 int main() {
     using namespace std;
     vector<shared_ptr<Profile_IP> > profiles {
-        make_shared<Profile_IP>("Rentaro Satomi", 210),
-        make_shared<Profile_Initiator>("Enju Aihara", 210, "rabbit"),
-        make_shared<Profile_Initiator>("Tina Sprout", 98, "owl")
+        make_shared<Profile_IP>("Rentaro Satomi", 120000),
+        make_shared<Profile_Initiator>("Enju Aihara", 120000, "rabbit"),
+        make_shared<Profile_Initiator>("Kohina Hiruko", 134, "mantis")
     };
 
     auto print_all = [&] () {
