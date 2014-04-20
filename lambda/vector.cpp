@@ -93,3 +93,12 @@ int main() {
     print_all();
     //print_all(profiles);
 }
+
+// outpus
+// name: Rentaro Satomi, ranking: 120000
+// name: Enju Aihara, ranking: 120000, model: rabbit
+// name: Kohina Hiruko, ranking: 134, model: mantis
+// sorted
+// name: Kohina Hiruko, ranking: 134, model: mantis
+// name: Rentaro Satomi, ranking: 120000
+// name: Enju Aihara, ranking: 120000, model: rabbit

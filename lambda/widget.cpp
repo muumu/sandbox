@@ -31,7 +31,7 @@ public:
         w_.setClickListener([this] (int x, int y) {
             increment();
             std::cout <<
-                boost::format("%d : clicked w1 at (%d, %d)") % count_ % x % y
+                boost::format("%d : clicked at (%d, %d)") % count_ % x % y
                 << std::endl;
         });
     }
@@ -45,3 +45,7 @@ int main() {
     Application app;
     app.execute();
 }
+
+// outputs
+// 1 : clicked at (100, 200)
+// 2 : clicked at (150, 250)
